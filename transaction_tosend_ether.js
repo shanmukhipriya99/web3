@@ -1,4 +1,4 @@
-const Tx = require("ethereumjs-tx").Transaction
+var Tx = require('ethereumjs-tx').Transaction
 const Web3 = require('web3')
 const url = 'https://ropsten.infura.io/v3/758990e5645944eab4d465a8eb6098d6'
 const web3 = new Web3(url)
@@ -37,7 +37,8 @@ web3.eth.getTransactionCount(account1, (error, txCount) => {
     // console.log(txObject)
   
     // sign transaction with private key of sender
-    const tx = new Tx(txObject)
+    // const tx = new Tx(txObject)
+    const tx = new Tx(txObject, {chain:'ropsten', hardfork: 'petersburg'})
     tx.sign(privateKey1)
   
     // serialize the transaction
@@ -46,6 +47,6 @@ web3.eth.getTransactionCount(account1, (error, txCount) => {
   
     // broadcast transaction to the network
     web3.eth.sendSignedTransaction(raw, (error, txHash) => {
-      console.log(txHash)
+      console.log("txHash: " , txHash)
     })
   })
